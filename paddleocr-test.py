@@ -12,48 +12,47 @@
 from paddleocr import PaddleOCR
 import os
 import shutil
+import tkinter as tk
+from tkinter import filedialog
 
 def print_text(local_image_path):
     # ocr = paddleocr.OCR(lang='en')
-    ocr = PaddleOCR(lang="en")
+    ocr = PaddleOCR(
+        use_doc_orientation_classify=False,
+        use_doc_unwarping=False, 
+        use_textline_orientation=False,
+        lang="en",)
+    
     result = ocr.predict(local_image_path)
+    # result = ocr.ocr(local_image_path)
 
-    print("OCR Result: ", result.__len__(), " results found.")
+    # print("OCR Result: ", result.__len__(), " results found.")
     for res in result:
         res.print()
         # res.save_to_img("output")
         # res.save_to_json("output")
 
-def get_local_image_path():
-    path = "./media/"
-    file = ""
+def get_image_path():
+    root = tk.Tk()
+    root.withdraw()
 
-    print("Files in the directory:", path, "\n")
-    print(os.listdir(path))
+    file_path = filedialog.askopenfilename()
     
-    while file not in os.listdir(path):
-        file = input("Enter the image file name (e.g., test.png): ")
-    
-    full_path = os.path.join(path, file)
-    return full_path
+    return file_path
 
 def add_image_to_media():
     target_dir = "./media/"
-    source_dir = input("Enter the source directory path to copy the image from: ")
-    image_name = input("Enter the image file name to copy: ")
-    source_path = os.path.join(source_dir, image_name)
+    source_dir = get_image_path()
+
     try:
-        shutil.copy(source_path, target_dir)
+        shutil.copy(source_dir, target_dir)
     except FileNotFoundError:
-        print(f"Error: The file {source_path} does not exist.")
+        print(f"Error: The file {source_dir} does not exist.")
 
 def main():
-    print("Welcome to the PaddleOCR Test Script!")
-    add_image = input("Do you want to add an image to the media folder? (yes/no): ").strip().lower()
-    if add_image == 'yes':
-        add_image_to_media()
-        
-    local_image_path = get_local_image_path()
+    print("Please select an image file for OCR processing.")
+    # input("Press Enter to continue...")
+    local_image_path = get_image_path()
     print_text(local_image_path)
 
 if __name__ == "__main__":
