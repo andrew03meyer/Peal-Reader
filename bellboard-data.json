@@ -3,8 +3,13 @@
                     "the ancient society of college youths",
                     "the society of royal cumberland youths",
                     "the university of london society of change ringers"
-                ],
-    "Bow" : "12",
-    "Magnus" : "12",
-    "Garlickhythe" : "8"
+    ],
+    "performances" : [
+        "bristol suprise maximus",
+        "cambridge suprise major",
+        "stedman caters",
+        "plain bob minor",
+        "london suprise minor",
+        "grandsire triples"
+    ]
 }
