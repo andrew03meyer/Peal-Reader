@@ -41,7 +41,7 @@ def get_image_path():
     return file_path
 
 def add_image_to_media():
-    target_dir = "../media/" #needs fixing
+    target_dir = "./media/" #needs fixing
     source_dir = get_image_path()
 
     try:
