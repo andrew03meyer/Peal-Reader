@@ -2,23 +2,29 @@ import json
 
 # takes array and writes to JSON file
 def create_json(result):
-    date = result[0]
-    performance = result[1]
-    society = result[2]
-    ringers = result[3]
-    footnote = result[4]
+    association = result[0]
+    place = result[1]
+    date = result[2]
+    duration = result[3]
+    title = result[4]
+    timestamp = 0
+    source = ""
+    rwref = ""
 
     json_text = {
+        "association" : association,
+        "place" : place,
         "date" : date,
-        "performance" : performance,
-        "society" : society,
-        "ringers" : ringers,
-        "footnote" : footnote
+        "duration" : duration,
+        "title" : title,
+        "timestamp" : timestamp,
+        "source" : source,
+        "rwref" : rwref
     }
 
     json_file = json.dumps(json_text)
     # needs to create a unique key for storing the file
-    export_path = "./output-json/" + date + "-" + performance + ".json"
+    export_path = "./output-json/" + place + "-" + str(timestamp) + ".json"
     export_file = open(export_path, "w")
     export_file.write(json_file)
     export_file.close()
@@ -32,7 +38,7 @@ def check_society(result):
 
 def main():
     # check_society("hi")
-    create_json(["hi", "hello", "yes", "hee", "yoyo"])
+    create_json(["St Martin's Guild", "7450", "2009-12-02", "5h 21", "None", "2017-01-05T15:06:19", "None", "5149.11"])
 
 if __name__ == "__main__":
     main()

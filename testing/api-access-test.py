@@ -1,8 +1,9 @@
 import requests
+import lxml.etree as etree
 
 # Step 1: Make the API request
 def fetch_bellboard_data():
-    url = "https://bellboard.uk/search.php?changed_since=2025-06-29&format=xml"
+    url = "https://bellboard.uk/view.php?id=110081&fmt=xml" #https://bellboard.uk/search.php?changed_since=2025-06-29&format=xml
     response = requests.get(url)
     
     # Step 2: Check if the request was successful
@@ -13,21 +14,25 @@ def fetch_bellboard_data():
     else:
         raise Exception(f"Failed to fetch data. Status code: {response.status_code}")
 
-# Step 4: Extract the <p> data from the XML
-def pull_div_data(data):
-    split_data = data.split("div")
-    for line in split_data:
-        print(line.split("</div>", 1))
-        print("\n")
+def print_child_values(xml_tree_root_node):
+    xml_tree_root_node = etree.fromstring(xml_tree_root_node)
+    # print(etree.tostring(xml_data, pretty_print="True"))
+    print(xml_tree_root_node.attrib)
+    print("\n")
+
+    #Prints tag, attribute and text of the root's child
+    for child in xml_tree_root_node:
+        print(child.tag, child.attrib, child.text)
+
 
 def main():
+    xml_data = ""
     try:
-        xml_data = str(fetch_bellboard_data())
-        print("Data fetched successfully.")
-        print(xml_data)
-        # print(pull_div_data(xml_data))
+        xml_data = fetch_bellboard_data()
     except Exception as e:
         print(f"An error occurred: {e}")
+    
+    print_child_values(xml_data)
     
 if __name__ == "__main__":
     main()
