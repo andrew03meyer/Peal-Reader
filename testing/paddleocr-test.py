@@ -52,9 +52,9 @@ def add_image_to_media():
 def main():
     print("Please select an image file for OCR processing.")
     # input("Press Enter to continue...")
-    # local_image_path = get_image_path()
-    # print_text(local_image_path)
-    add_image_to_media()
+    local_image_path = get_image_path()
+    print_text(local_image_path)
+    # add_image_to_media()
 
 if __name__ == "__main__":
     main()

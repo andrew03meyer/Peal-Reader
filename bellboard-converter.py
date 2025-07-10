@@ -34,11 +34,27 @@ def check_society(result):
     file_path = './bellboard-data.json'
     file_json = open(file_path)
     societies = json.load(file_json)
-    print(societies['Bow'])
+    return result.lower() in societies['societies']
+
 
 def main():
-    # check_society("hi")
-    create_json(["St Martin's Guild", "7450", "2009-12-02", "5h 21", "None", "2017-01-05T15:06:19", "None", "5149.11"])
+    print(check_society("St Martin's Guild"))
+    # create_json(["St Martin's Guild", "7450", "2009-12-02", "5h 21", "None", "2017-01-05T15:06:19", "None", "5149.11"])
 
 if __name__ == "__main__":
     main()
+
+# date id = date_rung
+# association id =  association
+# place id = place
+# county id = region
+# dedication id = address
+# length id = changes
+# method id = title
+# duration id = duration
+# tenor id = tenor_size
+# details id = details
+# composer id = composer
+# ringers id 1-16 = ringers.x
+# footnotes id = footnotes
+# submit id = formsubmit
